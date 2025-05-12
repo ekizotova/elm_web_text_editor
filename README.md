@@ -1,6 +1,6 @@
 # WEB text editor (leaning towards archive structure) in _ELM_
 
-## 3 main pages: *EDITOR, ARCHIVE, TEXT PAGE*
+## 3 main pages: **EDITOR, ARCHIVE, TEXT PAGE**
 
 ## Primary goal of the application is to create simple web text editor completely in ELM
 
