@@ -9,7 +9,12 @@ Usefull functions can be:
 - transform "-" into em-dash when needed 
 
 Additional functions to think about:
-- correction of spaces between words or around punctuation (something like pretty-print button) 
+- download of formated text as a file 
+- correction of spaces between words or around punctuation (something like pretty-print button)
+
+### Main idea: to control and edit text highlighted with cursor (cursosr-controlled settings)  
+
+back-up plan: think about setting flags around the text and prette-print at the other area 
 
 
 
