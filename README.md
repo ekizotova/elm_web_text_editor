@@ -6,10 +6,10 @@ Usefull functions can be:
 - simple text formating (bold, italic, etc.)
 - layout formating (lean towards left/right/center or make header)
 - add tab
-- transform "-" into em-dash when needed 
+- transform "-" into em-dash when needed
+- download of formated text as a file 
 
 Additional functions to think about:
-- download of formated text as a file 
 - correction of spaces between words or around punctuation (something like pretty-print button)
 
 ### Main idea: to control and edit text highlighted with cursor (cursor-controlled settings)  
