@@ -12,9 +12,9 @@ Additional functions to think about:
 - download of formated text as a file 
 - correction of spaces between words or around punctuation (something like pretty-print button)
 
-### Main idea: to control and edit text highlighted with cursor (cursosr-controlled settings)  
+### Main idea: to control and edit text highlighted with cursor (cursor-controlled settings)  
 
-back-up plan: think about setting flags around the text and prette-print at the other area 
+back-up plan: think about setting flags around the text and pretty-print at the other area 
 
 
 
