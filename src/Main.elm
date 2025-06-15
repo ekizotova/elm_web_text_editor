@@ -17,6 +17,9 @@ port applyFormat : String -> Cmd msg
 port receiveUpdatedText : (String -> msg) -> Sub msg
 
 
+port exportContent : String -> Cmd msg
+
+
 
 -- MODEL
 
@@ -44,6 +47,8 @@ type Msg
     | AlignRight
     | AddTab
     | ReplaceDashes
+    | ClearOutput
+    | ExportAs String
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -76,6 +81,12 @@ update msg model =
         GotUpdatedText newText ->
             ( { model | content = newText }, Cmd.none )
 
+        ClearOutput ->
+            ( { model | content = "" }, Cmd.none )
+
+        ExportAs format ->
+            ( model, exportContent (format ++ "::" ++ model.content) )
+
 
 
 -- VIEW
@@ -94,6 +105,9 @@ view model =
             , button [ onClick AlignRight ] [ text "Right" ]
             , button [ onClick AddTab ] [ text "Tab" ]
             , button [ onClick ReplaceDashes ] [ text "emdash" ]
+            , button [ onClick ClearOutput ] [ text "Clear Output" ]
+            , button [ onClick (ExportAs "html") ] [ text "Export HTML" ]
+            , button [ onClick (ExportAs "md") ] [ text "Export MD" ]
             ]
         , div [ id "editor", contenteditable True, style "margin-top" "1em" ]
             [ text "" ]

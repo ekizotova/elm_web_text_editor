@@ -56,4 +56,33 @@ function setupEditorInterop(app) {
         // Update content back in Elm
         app.ports.receiveUpdatedText.send(editor.innerHTML);
     });
+
+    app.ports.exportContent.subscribe(function (data) {
+        const [format, content] = data.split("::", 2);
+
+        let mime = "text/plain";
+        let ext = "txt";
+        let output = content;
+
+        if (format === "html") {
+            mime = "text/html";
+            ext = "html";
+            output = content;
+        } else if (format === "md") {
+            mime = "text/markdown";
+            ext = "md";
+            output = content;
+        }
+
+        const blob = new Blob([output], { type: mime });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `export.${ext}`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    });
 }

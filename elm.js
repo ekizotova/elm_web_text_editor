@@ -5161,6 +5161,7 @@ var $author$project$Main$subscriptions = function (_v0) {
 };
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $author$project$Main$applyFormat = _Platform_outgoingPort('applyFormat', $elm$json$Json$Encode$string);
+var $author$project$Main$exportContent = _Platform_outgoingPort('exportContent', $elm$json$Json$Encode$string);
 var $author$project$Main$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
@@ -5196,13 +5197,24 @@ var $author$project$Main$update = F2(
 				return _Utils_Tuple2(
 					model,
 					$author$project$Main$applyFormat('em-dash'));
-			default:
+			case 'GotUpdatedText':
 				var newText = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{content: newText}),
 					$elm$core$Platform$Cmd$none);
+			case 'ClearOutput':
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{content: ''}),
+					$elm$core$Platform$Cmd$none);
+			default:
+				var format = msg.a;
+				return _Utils_Tuple2(
+					model,
+					$author$project$Main$exportContent(format + ('::' + model.content)));
 		}
 	});
 var $author$project$Main$AddTab = {$: 'AddTab'};
@@ -5210,6 +5222,10 @@ var $author$project$Main$AlignCenter = {$: 'AlignCenter'};
 var $author$project$Main$AlignLeft = {$: 'AlignLeft'};
 var $author$project$Main$AlignRight = {$: 'AlignRight'};
 var $author$project$Main$ClearFormatting = {$: 'ClearFormatting'};
+var $author$project$Main$ClearOutput = {$: 'ClearOutput'};
+var $author$project$Main$ExportAs = function (a) {
+	return {$: 'ExportAs', a: a};
+};
 var $author$project$Main$FormatBold = {$: 'FormatBold'};
 var $author$project$Main$FormatItalic = {$: 'FormatItalic'};
 var $author$project$Main$ReplaceDashes = {$: 'ReplaceDashes'};
@@ -5353,6 +5369,38 @@ var $author$project$Main$view = function (model) {
 						_List_fromArray(
 							[
 								$elm$html$Html$text('emdash')
+							])),
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Events$onClick($author$project$Main$ClearOutput)
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Clear Output')
+							])),
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Events$onClick(
+								$author$project$Main$ExportAs('html'))
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Export HTML')
+							])),
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Events$onClick(
+								$author$project$Main$ExportAs('md'))
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Export MD')
 							]))
 					])),
 				A2(
