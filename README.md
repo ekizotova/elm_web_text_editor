@@ -2,7 +2,7 @@
 
 ## Primary goal of the application is to create simple web text editor completely in ELM
 
-Usefull functions can be: 
+Usefull functions can be (all implemented): 
 - simple text formating (bold, italic, etc.)
 - layout formating (lean towards left/right/center or make header)
 - add tab
@@ -12,7 +12,7 @@ Usefull functions can be:
 Additional functions to think about:
 - correction of spaces between words or around punctuation (something like pretty-print button)
 
-### Main idea: to control and edit text highlighted with cursor (cursor-controlled settings)  
+### Main idea: to control and edit text highlighted with cursor (cursor-controlled settings) - implemented 
 
 back-up plan: think about setting flags around the text and pretty-print at the other area 
 
