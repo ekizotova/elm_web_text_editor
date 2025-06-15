@@ -5172,6 +5172,30 @@ var $author$project$Main$update = F2(
 				return _Utils_Tuple2(
 					model,
 					$author$project$Main$applyFormat('italic'));
+			case 'ClearFormatting':
+				return _Utils_Tuple2(
+					model,
+					$author$project$Main$applyFormat('clear'));
+			case 'AlignLeft':
+				return _Utils_Tuple2(
+					model,
+					$author$project$Main$applyFormat('align-left'));
+			case 'AlignCenter':
+				return _Utils_Tuple2(
+					model,
+					$author$project$Main$applyFormat('align-center'));
+			case 'AlignRight':
+				return _Utils_Tuple2(
+					model,
+					$author$project$Main$applyFormat('align-right'));
+			case 'AddTab':
+				return _Utils_Tuple2(
+					model,
+					$author$project$Main$applyFormat('tab'));
+			case 'ReplaceDashes':
+				return _Utils_Tuple2(
+					model,
+					$author$project$Main$applyFormat('em-dash'));
 			default:
 				var newText = msg.a;
 				return _Utils_Tuple2(
@@ -5181,8 +5205,14 @@ var $author$project$Main$update = F2(
 					$elm$core$Platform$Cmd$none);
 		}
 	});
+var $author$project$Main$AddTab = {$: 'AddTab'};
+var $author$project$Main$AlignCenter = {$: 'AlignCenter'};
+var $author$project$Main$AlignLeft = {$: 'AlignLeft'};
+var $author$project$Main$AlignRight = {$: 'AlignRight'};
+var $author$project$Main$ClearFormatting = {$: 'ClearFormatting'};
 var $author$project$Main$FormatBold = {$: 'FormatBold'};
 var $author$project$Main$FormatItalic = {$: 'FormatItalic'};
+var $author$project$Main$ReplaceDashes = {$: 'ReplaceDashes'};
 var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$json$Json$Encode$bool = _Json_wrap;
 var $elm$html$Html$Attributes$boolProperty = F2(
@@ -5263,6 +5293,66 @@ var $author$project$Main$view = function (model) {
 						_List_fromArray(
 							[
 								$elm$html$Html$text('Italic')
+							])),
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Events$onClick($author$project$Main$ClearFormatting)
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Clear')
+							])),
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Events$onClick($author$project$Main$AlignLeft)
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Left')
+							])),
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Events$onClick($author$project$Main$AlignCenter)
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Center')
+							])),
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Events$onClick($author$project$Main$AlignRight)
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Right')
+							])),
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Events$onClick($author$project$Main$AddTab)
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Tab')
+							])),
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Events$onClick($author$project$Main$ReplaceDashes)
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('emdash')
 							]))
 					])),
 				A2(

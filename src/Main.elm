@@ -38,6 +38,12 @@ type Msg
     = FormatBold
     | FormatItalic
     | GotUpdatedText String
+    | ClearFormatting
+    | AlignLeft
+    | AlignCenter
+    | AlignRight
+    | AddTab
+    | ReplaceDashes
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -48,6 +54,24 @@ update msg model =
 
         FormatItalic ->
             ( model, applyFormat "italic" )
+
+        ClearFormatting ->
+            ( model, applyFormat "clear" )
+
+        AlignLeft ->
+            ( model, applyFormat "align-left" )
+
+        AlignCenter ->
+            ( model, applyFormat "align-center" )
+
+        AlignRight ->
+            ( model, applyFormat "align-right" )
+
+        AddTab ->
+            ( model, applyFormat "tab" )
+
+        ReplaceDashes ->
+            ( model, applyFormat "em-dash" )
 
         GotUpdatedText newText ->
             ( { model | content = newText }, Cmd.none )
@@ -64,6 +88,12 @@ view model =
         , div []
             [ button [ onClick FormatBold ] [ text "Bold" ]
             , button [ onClick FormatItalic ] [ text "Italic" ]
+            , button [ onClick ClearFormatting ] [ text "Clear" ]
+            , button [ onClick AlignLeft ] [ text "Left" ]
+            , button [ onClick AlignCenter ] [ text "Center" ]
+            , button [ onClick AlignRight ] [ text "Right" ]
+            , button [ onClick AddTab ] [ text "Tab" ]
+            , button [ onClick ReplaceDashes ] [ text "emdash" ]
             ]
         , div [ id "editor", contenteditable True, style "margin-top" "1em" ]
             [ text "" ]
