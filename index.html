@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Elm Text Editor</title>
+    <script src="elm.js"></script>
+    <script src="editor.js"></script>
+    <style>
+        #editor {
+            border: 1px solid #ccc;
+            padding: 1em;
+            min-height: 200px;
+        }
+    </style>
+</head>
+<body>
+<div id="elm"></div>
+<script>
+    const app = Elm.Main.init({
+        node: document.getElementById("elm")
+    });
+    setupEditorInterop(app);
+</script>
+</body>
+</html>
