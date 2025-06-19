@@ -26,16 +26,14 @@ back-up plan: think about setting flags around the text and pretty-print at the 
 
 ---
 
-## Prerequisites
+## Requirements 
 
-- [Elm 0.19.1](https://guide.elm-lang.org/install/elm.html) installed  
+- [Elm](https://guide.elm-lang.org/install/elm.html) installed  
 - Optional: Node.js and npm
 
 ---
 
 ## Build Instructions
-
-### 1. Compile Elm to JavaScript
 
 a.
 Download the project.
