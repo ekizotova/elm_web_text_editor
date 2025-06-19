@@ -45,6 +45,7 @@ Run this command in your project folder:
 
 ```bash
 elm make Main.elm --optimize --output=elm.js
+```
 
 c.
 Open `index.html` in your browser. 
