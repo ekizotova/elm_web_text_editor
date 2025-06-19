@@ -3,12 +3,11 @@ port module Main exposing (main)
 import Browser
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onClick)
+import Html.Events exposing (onClick, onInput)
 import Html.Lazy as Html
 
 
 
--- import Json.Decode exposing (string)
 -- PORTS
 
 
@@ -21,17 +20,22 @@ port receiveUpdatedText : (String -> msg) -> Sub msg
 port exportContent : String -> Cmd msg
 
 
+port highlightText : String -> Cmd msg
+
+
 
 -- MODEL
 
 
 type alias Model =
-    { content : String }
+    { content : String
+    , searchTerm : String
+    }
 
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( { content = "" }, Cmd.none )
+    ( { content = "", searchTerm = "" }, Cmd.none )
 
 
 
@@ -50,6 +54,8 @@ type Msg
     | ReplaceDashes
     | ClearOutput
     | ExportAs String
+    | UpdateSearch String
+    | HighlightSearch
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -88,6 +94,12 @@ update msg model =
         ExportAs format ->
             ( model, exportContent (format ++ "::" ++ model.content) )
 
+        UpdateSearch term ->
+            ( { model | searchTerm = term }, Cmd.none )
+
+        HighlightSearch ->
+            ( model, highlightText model.searchTerm )
+
 
 
 -- VIEW
@@ -97,6 +109,17 @@ view : Model -> Html Msg
 view model =
     div []
         [ h2 [] [ text "Elm Text Editor" ]
+        , h3 [] [ text " " ]
+        , div []
+            [ input
+                [ placeholder "Search term..."
+                , value model.searchTerm
+                , onInput UpdateSearch
+                ]
+                []
+            , button [ onClick HighlightSearch ] [ text "Highlight" ]
+            ]
+        , h3 [] [ text " " ]
         , div []
             [ button [ onClick FormatBold ] [ text "Bold" ]
             , button [ onClick FormatItalic ] [ text "Italic" ]
@@ -113,8 +136,8 @@ view model =
         , div [ id "editor", contenteditable True, style "margin-top" "1em" ]
             [ text "" ]
         , div [] [ text ("Words: " ++ String.fromInt (wordCount model.content)) ]
-        , h3 [] [ text "Aktuální HTML výstup:" ]
-        , div [ Html.Attributes.style "border-top" "1px solid #ccc", Html.Attributes.style "margin-top" "1em" ]
+        , h3 [] [ text "Aktuální HTML výstup" ]
+        , div [ Html.Attributes.style "margin-top" "1em" ]
             [ h3 [] [ text "Preview:" ]
             , div [ Html.Attributes.style "background" "#f9f9f9" ]
                 [ Html.lazy Html.text model.content ]
