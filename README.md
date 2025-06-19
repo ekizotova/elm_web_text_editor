@@ -16,5 +16,38 @@ Additional functions to think about:
 
 back-up plan: think about setting flags around the text and pretty-print at the other area 
 
+## Project Structure
+
+- `Main.elm` — Main Elm module handling ports, UI, and JS interop  
+- `Editor.elm` — Elm module containing editor logic and state updates  
+- `elm.js` — Compiled Elm JavaScript output (generated via elm make)  
+- `editor.js` — JavaScript file handling editor interop  
+- `index.html` — HTML file to load the Elm app and run in the browser  
+
+---
+
+## Prerequisites
+
+- [Elm 0.19.1](https://guide.elm-lang.org/install/elm.html) installed  
+- Optional: Node.js and npm
+
+---
+
+## Build Instructions
+
+### 1. Compile Elm to JavaScript
+
+a.
+Download the project.
+
+b.
+Run this command in your project folder:
+
+```bash
+elm make Main.elm --optimize --output=elm.js
+
+c.
+Open `index.html` in your browser. 
+
 
 
