@@ -4,10 +4,11 @@ import Browser
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
-import Json.Decode exposing (string)
+import Html.Lazy as Html
 
 
 
+-- import Json.Decode exposing (string)
 -- PORTS
 
 
@@ -111,8 +112,13 @@ view model =
             ]
         , div [ id "editor", contenteditable True, style "margin-top" "1em" ]
             [ text "" ]
+        , div [] [ text ("Words: " ++ String.fromInt (wordCount model.content)) ]
         , h3 [] [ text "Aktuální HTML výstup:" ]
-        , pre [] [ text model.content ]
+        , div [ Html.Attributes.style "border-top" "1px solid #ccc", Html.Attributes.style "margin-top" "1em" ]
+            [ h3 [] [ text "Preview:" ]
+            , div [ Html.Attributes.style "background" "#f9f9f9" ]
+                [ Html.lazy Html.text model.content ]
+            ]
         ]
 
 
@@ -123,6 +129,17 @@ view model =
 subscriptions : Model -> Sub Msg
 subscriptions _ =
     receiveUpdatedText GotUpdatedText
+
+
+
+-- WORD COUNT
+
+
+wordCount : String -> Int
+wordCount content =
+    content
+        |> String.words
+        |> List.length
 
 
 
