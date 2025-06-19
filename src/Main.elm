@@ -1,6 +1,7 @@
 port module Main exposing (main)
 
 import Browser
+import Editor exposing (Model, Msg(..), update, wordCount)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput)
@@ -24,13 +25,7 @@ port highlightText : String -> Cmd msg
 
 
 
--- MODEL
-
-
-type alias Model =
-    { content : String
-    , searchTerm : String
-    }
+-- INIT
 
 
 init : () -> ( Model, Cmd Msg )
@@ -39,27 +34,11 @@ init _ =
 
 
 
--- UPDATE
+-- WRAPPED UPDATE
 
 
-type Msg
-    = FormatBold
-    | FormatItalic
-    | GotUpdatedText String
-    | ClearFormatting
-    | AlignLeft
-    | AlignCenter
-    | AlignRight
-    | AddTab
-    | ReplaceDashes
-    | ClearOutput
-    | ExportAs String
-    | UpdateSearch String
-    | HighlightSearch
-
-
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
+updateWithPorts : Msg -> Model -> ( Model, Cmd Msg )
+updateWithPorts msg model =
     case msg of
         FormatBold ->
             ( model, applyFormat "bold" )
@@ -85,20 +64,14 @@ update msg model =
         ReplaceDashes ->
             ( model, applyFormat "em-dash" )
 
-        GotUpdatedText newText ->
-            ( { model | content = newText }, Cmd.none )
-
-        ClearOutput ->
-            ( { model | content = "" }, Cmd.none )
-
         ExportAs format ->
             ( model, exportContent (format ++ "::" ++ model.content) )
 
-        UpdateSearch term ->
-            ( { model | searchTerm = term }, Cmd.none )
-
         HighlightSearch ->
             ( model, highlightText model.searchTerm )
+
+        _ ->
+            Editor.update msg model
 
 
 
@@ -135,11 +108,16 @@ view model =
             ]
         , div [ id "editor", contenteditable True, style "margin-top" "1em" ]
             [ text "" ]
-        , div [] [ text ("Words: " ++ String.fromInt (wordCount model.content)) ]
+        , div []
+            [ text
+                ("Words: "
+                    ++ String.fromInt (wordCount model.content)
+                )
+            ]
         , h3 [] [ text "Aktuální HTML výstup" ]
-        , div [ Html.Attributes.style "margin-top" "1em" ]
+        , div [ style "margin-top" "1em" ]
             [ h3 [] [ text "Preview:" ]
-            , div [ Html.Attributes.style "background" "#f9f9f9" ]
+            , div [ style "background" "#f9f9f9" ]
                 [ Html.lazy Html.text model.content ]
             ]
         ]
@@ -155,17 +133,6 @@ subscriptions _ =
 
 
 
--- WORD COUNT
-
-
-wordCount : String -> Int
-wordCount content =
-    content
-        |> String.words
-        |> List.length
-
-
-
 -- MAIN
 
 
@@ -173,7 +140,7 @@ main : Program () Model Msg
 main =
     Browser.element
         { init = init
-        , update = update
-        , subscriptions = subscriptions
+        , update = updateWithPorts
         , view = view
+        , subscriptions = subscriptions
         }
