@@ -44,7 +44,7 @@ b.
 Run this command in your project folder:
 
 ```bash
-elm make Main.elm --optimize --output=elm.js
+ elm make src/Main.elm --output=elm.js
 ```
 
 c.
